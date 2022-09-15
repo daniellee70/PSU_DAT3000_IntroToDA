@@ -1,260 +1,176 @@
 ---
-title: "Week 4: Code along 3"
-author: "Daniel Lee"
-date: "2022-09-15"
+title: "Communication with RMarkdown"
 output:
-  html_document: 
+  pdf_document:
     toc: yes
-  pdf_document: default
-  word_document: default
-editor_options: 
-  chunk_output_type: console
+    toc_depth: '2'
+  html_document: 
+    anchor_sections: TRUE
+    code_folding: "show"
+    highlight: tango
+    number_sections: yes
+    theme: 
+        bootswatch: solar
+    toc: yes
+    toc_depth: 2
+always_allow_html: true
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(
+    echo = TRUE,
+    eval = TRUE,
+    message = FALSE,
+    warning = FALSE,
+    fig.align = "center"
+    )
+
+# See Options: knitr::opts_chunk$get()
 ```
 
-# Welcome
+```{r, echo=FALSE}
 
-# Ch1 Introduction
+# eval = FALSE (Show code, but don't run, no output)
+# echo = FALSE (Don't show code, but run, show output)
+# results = "hide" (Show code, and run, but don't show output)
 
-## The data science project workflow
-
-## Prerequisites
-
--   R
--   RStudio
--   r packages
-
-## Install the tidyverse package
-
-```{r eval = FALSE}
-install.packages("tidyverse")
+# Load Libraries
 library(tidyverse)
+library(tidyquant)
+library(plotly)
 ```
 
-## Running R code
+
+## What can RMarkdown be used for?
+
+1.  [HTML Reports](https://bookdown.org/yihui/rmarkdown/html-document.html) & [PDF Reports](https://bookdown.org/yihui/rmarkdown/pdf-document.html)
+2.  [HTML Slide Decks](https://bookdown.org/yihui/rmarkdown/ioslides-presentation.html) & [PowerPoint](https://bookdown.org/yihui/rmarkdown/powerpoint-presentation.html)
+3.  [Interactive Dashboards](https://rmarkdown.rstudio.com/flexdashboard/index.html)
+4.  [Books with `bookdown`](https://bookdown.org/)
+5.  [Websites with `blogdown`](https://bookdown.org/yihui/blogdown/)
+
+## Key Resources
+
+-   [RMarkdown Website with Gallery](https://rmarkdown.rstudio.com/index.html)
+
+-   Key Reference: [RMarkdown - The Definitive Guide](https://bookdown.org/yihui/rmarkdown/)
+
+-   PDF Printing Setup: [tinytex](https://yihui.name/tinytex/)
+
+```{r eval=FALSE}
+# PDF Knitting Setup: https://yihui.name/tinytex/ 
+# install.packages("tintex")
+# tinytex::install_tinytex()
+```
+
+# Write with Markdown
+
+# Header 1
+
+## Header 2
+
+### Header 3
+
+
+Plain text.
+
+Type **bold**.
+
+Type *italics*.
+
+Type ***bold + italics***.
+
+Talk about code - the `tidyverse` is awesome
+
+**Unordered List:**
+
+-   Item 1
+-   Item 2
+
+**Ordered List:**
+
+1.  First point
+2.  Second point
+3.  More points
+
+# Tabset {.tabset .tabset-fade .tabset-pills}
+
+## Tab 1
+
+This is Tab 1
+
+## Tab 2
+
+This is Tab 2
+
+# Images
+
+![PSU Logo](img/PSU-logo.png){width="100px"}
+   
+
+```{r, out.width="100px", echo=FALSE, fig.cap="PSU Logo"}
+knitr::include_graphics("img/PSU-logo.png")
+```
+
+# Code
+
+```{r cars}
+# Import stock prices
+stocks <- tq_get(c("TSLA", "AMZN"),
+                 get = "stock.prices",
+                 from = "2016-01-01",
+                 to = "2017-01-01")
+stocks
+```
+
+
+
+# Plots
+
+Plotting works as expected. Try changing:
+
+-   `out.height`, `out.width` and Knitting
+
+**Static plots:**
+
+```{r, fig.cap="Revenue by Category", out.height="600px"}
+g <- ggplot(data = stocks) + 
+  geom_point(mapping = aes(x = volume, y = adjusted, color = symbol))
+
+g
+  
+```
+
+**Interactive plots:**
+
+-   Use `ggplotly()`.
+
+```{r, out.height="500px", out.width="100%"}
+ggplotly(g)
+```
+
+# Tables
+
+**Static Tables:**
+
+-   `knitr` package - `knitr::kable()` - Simple to use, great with PDF
 
 ```{r}
-1+2
+stocks %>% head() %>% knitr::kable()
 ```
 
-## Getting help
+**Dynamic Tables:**
 
-* Google 
-* Stackoverflow
-
-# Ch2 Introduction to Data Exploration
-
-# Ch3 Data Visualization
-
-## Set up
+-   Potential Gotcha: Note that this will not print with format in PDF
 
 ```{r}
-library(tidyverse)
+stocks 
 ```
 
-## data
+# Footnotes
 
-```{r}
-mpg
-```
+This is some text with a Footnote[^1]. This is a second Footnote[^2].
 
-## aesthetics
+[^1]: Citation for Footnote 1
 
-* x
-* y
-* color
-* size
-* alpha
-* shape
-
-```{r}
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
-
-# Add a third variable: color
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, color = class))
-
-# Add a third variable: size
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, size = class))
-
-# Add a third variable: alpha
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, alpha = class))
-
-# Add a third variable: shape
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy, shape = class))
-
-# Setting aesthetics manually
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy), color = "blue")
-```
-
-## common problems
-
-* Sometimes you’ll run the code and nothing happens.
-* Putting the + in the wrong place.
-
-How to get help
-
-* ? function name
-* Select the function name and press F1
-* Read the error message
-* Google the error message
-
-## facets
-
-```{r}
-# facet your plot by a single variable
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) + 
-  facet_wrap(~ class, nrow = 2)
-
-# facet your plot on the combination of two variables
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy)) + 
-  facet_grid(drv ~ cyl)
-```
-
-## geometric objects
-
-different visual object to represent data
-
-```{r}
-# scatterplot
-ggplot(data = mpg) + 
-  geom_point(mapping = aes(x = displ, y = hwy))
-
-# smooth line
-ggplot(data = mpg) + 
-  geom_smooth(mapping = aes(x = displ, y = hwy))
-```
-
-not every aesthetic works with every geom
-
-```{r}
-ggplot(data = mpg) + 
-  geom_smooth(mapping = aes(x = displ, y = hwy, linetype = drv))
-```
-
-two geoms in the same graph!
-
-```{r}
-ggplot(data = mpg) + 
-  geom_smooth(mapping = aes(x = displ, y = hwy, linetype = drv)) +
-    
-  # Add another geom
-  geom_point(mapping = aes(x = displ, y = hwy, color = drv))
-```
-
-local vs. global mappings
-This makes it possible to display different aesthetics in different layers.
-
-```{r}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point(mapping = aes(color = class)) + 
-  geom_smooth()
-
-```
-
-specify different data for each layer
-
-```{r}
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point(mapping = aes(color = class)) + 
-  geom_smooth(data = filter(mpg, class == "subcompact"), se = FALSE)
-```
-
-## statistical transformation
-
-## position adjustments
-
-adjustments for bar charts
-
-```{r}
-# to place each object exactly where it falls
-ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
-  geom_bar(position = "identity")
-
-# to compare proportions across groups
-ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
-  geom_bar(position = "fill")
-
-# to compare individual values
-ggplot(data = diamonds, mapping = aes(x = cut, fill = clarity)) + 
-  geom_bar(position = "dodge")
-```
-
-adjustments for scatterplots
-
-```{r}
-# overlapping
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_point()
-
-# jitter
-ggplot(data = mpg, mapping = aes(x = displ, y = hwy)) + 
-  geom_jitter()
-```
-
-
-## coordinate systems
-
-switch x and y
-
-```{r}
-# original
-ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + 
-  geom_boxplot()
-
-# switch x and y
-ggplot(data = mpg, mapping = aes(x = class, y = hwy)) + 
-  geom_boxplot() +
-  coord_flip()
-```
-
-set the aspect ratio correctly for maps
-
-```{r}
-nz <- map_data("nz")
-
-ggplot(nz, aes(long, lat, group = group)) +
-  geom_polygon(fill = "white", colour = "black")
-
-ggplot(nz, aes(long, lat, group = group)) +
-  geom_polygon(fill = "white", colour = "black") +
-  coord_quickmap()
-```
-
-Polar coordinates reveal an interesting connection between a bar chart and a Coxcomb chart.
-
-```{r}
-bar <- ggplot(data = diamonds) + 
-  geom_bar(
-    mapping = aes(x = cut, fill = cut), 
-    show.legend = FALSE,
-    width = 1
-  ) + 
-  theme(aspect.ratio = 1) +
-  labs(x = NULL, y = NULL)
-
-bar + coord_flip()
-bar + coord_polar()
-```
-
-## the layered grammar of graphics
-
-The grammar of graphics is based on the insight that you can uniquely describe any plot as a combination of:
-
-* a dataset, 
-* a geom, 
-* a set of mappings, 
-* a stat, 
-* a position adjustment, 
-* a coordinate system, and 
-* a faceting scheme.
+[^2]: Citatin for Footnote 2
