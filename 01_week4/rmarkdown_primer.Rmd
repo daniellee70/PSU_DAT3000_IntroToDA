@@ -1,6 +1,9 @@
 ---
 title: "Communication with RMarkdown"
 output:
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
   html_document: 
     anchor_sections: TRUE
     code_folding: "show"
@@ -10,9 +13,6 @@ output:
         bootswatch: solar
     toc: yes
     toc_depth: 2
-  pdf_document:
-    toc: yes
-    toc_depth: '2'
 always_allow_html: true
 ---
 
