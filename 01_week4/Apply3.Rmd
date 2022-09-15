@@ -12,7 +12,7 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, results = "markup")
 
 # Install packages
 library(tidyverse)
@@ -31,7 +31,7 @@ data <- read_excel("data/Salaries.xlsx")
 data
 ```
 
-# Plot stock prices
+# Plot prices
 
 ```{r}
 data %>%
