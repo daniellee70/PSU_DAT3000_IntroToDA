@@ -13,7 +13,7 @@
 
 <meta name="date" content="2022-09-15" />
 
-<title>Week 5: Code along 4</title>
+<title>Week 4: Apply 3</title>
 
 <script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
 // be compatible with the behavior of Pandoc < 2.8).
@@ -363,7 +363,7 @@ pre code {
 
 
 
-<h1 class="title toc-ignore">Week 5: Code along 4</h1>
+<h1 class="title toc-ignore">Week 4: Apply 3</h1>
 <h4 class="author">Daniel Lee</h4>
 <h4 class="date">2022-09-15</h4>
 
@@ -371,148 +371,25 @@ pre code {
 
 <div id="TOC">
 <ul>
-<li><a href="#welcome" id="toc-welcome">Welcome</a></li>
-<li><a href="#ch1-introduction" id="toc-ch1-introduction">Ch1
-Introduction</a>
-<ul>
-<li><a href="#the-data-science-project-workflow" id="toc-the-data-science-project-workflow">The data science project
-workflow</a></li>
-<li><a href="#prerequisites" id="toc-prerequisites">Prerequisites</a></li>
-<li><a href="#install-the-tidyverse-package" id="toc-install-the-tidyverse-package">Install the tidyverse
-package</a></li>
-<li><a href="#running-r-code" id="toc-running-r-code">Running R
-code</a></li>
-<li><a href="#getting-help" id="toc-getting-help">Getting help</a></li>
-</ul></li>
-<li><a href="#ch2-introduction-to-data-exploration" id="toc-ch2-introduction-to-data-exploration">Ch2 Introduction to Data
-Exploration</a></li>
-<li><a href="#ch3-data-visualization" id="toc-ch3-data-visualization">Ch3 Data Visualization</a>
-<ul>
-<li><a href="#set-up" id="toc-set-up">Set up</a></li>
-<li><a href="#data" id="toc-data">data</a></li>
-<li><a href="#aesthetics" id="toc-aesthetics">aesthetics</a></li>
-<li><a href="#common-problems" id="toc-common-problems">common
-problems</a></li>
-<li><a href="#facets" id="toc-facets">facets</a></li>
-<li><a href="#geometric-objects" id="toc-geometric-objects">geometric
-objects</a></li>
-<li><a href="#statistical-transformation" id="toc-statistical-transformation">statistical transformation</a></li>
-<li><a href="#position-adjustments" id="toc-position-adjustments">position adjustments</a></li>
-<li><a href="#coordinate-systems" id="toc-coordinate-systems">coordinate
-systems</a></li>
-<li><a href="#the-layered-grammar-of-graphics" id="toc-the-layered-grammar-of-graphics">the layered grammar of
-graphics</a></li>
-</ul></li>
+<li><a href="#import-data" id="toc-import-data">Import data</a></li>
+<li><a href="#state-one-question" id="toc-state-one-question">State one
+question</a></li>
+<li><a href="#plot-data" id="toc-plot-data">Plot data</a></li>
+<li><a href="#interpret" id="toc-interpret">Interpret</a></li>
 </ul>
 </div>
 
-<div id="welcome" class="section level1">
-<h1>Welcome</h1>
+<div id="import-data" class="section level1">
+<h1>Import data</h1>
 </div>
-<div id="ch1-introduction" class="section level1">
-<h1>Ch1 Introduction</h1>
-<div id="the-data-science-project-workflow" class="section level2">
-<h2>The data science project workflow</h2>
+<div id="state-one-question" class="section level1">
+<h1>State one question</h1>
 </div>
-<div id="prerequisites" class="section level2">
-<h2>Prerequisites</h2>
-<ul>
-<li>R</li>
-<li>RStudio</li>
-<li>r packages</li>
-</ul>
+<div id="plot-data" class="section level1">
+<h1>Plot data</h1>
 </div>
-<div id="install-the-tidyverse-package" class="section level2">
-<h2>Install the tidyverse package</h2>
-</div>
-<div id="running-r-code" class="section level2">
-<h2>Running R code</h2>
-</div>
-<div id="getting-help" class="section level2">
-<h2>Getting help</h2>
-<ul>
-<li>Google</li>
-<li>Stackoverflow</li>
-</ul>
-</div>
-</div>
-<div id="ch2-introduction-to-data-exploration" class="section level1">
-<h1>Ch2 Introduction to Data Exploration</h1>
-</div>
-<div id="ch3-data-visualization" class="section level1">
-<h1>Ch3 Data Visualization</h1>
-<div id="set-up" class="section level2">
-<h2>Set up</h2>
-</div>
-<div id="data" class="section level2">
-<h2>data</h2>
-</div>
-<div id="aesthetics" class="section level2">
-<h2>aesthetics</h2>
-<ul>
-<li>x</li>
-<li>y</li>
-<li>color</li>
-<li>size</li>
-<li>alpha</li>
-<li>shape</li>
-</ul>
-</div>
-<div id="common-problems" class="section level2">
-<h2>common problems</h2>
-<ul>
-<li>Sometimes you’ll run the code and nothing happens.</li>
-<li>Putting the + in the wrong place.</li>
-</ul>
-<p>How to get help</p>
-<ul>
-<li>? function name</li>
-<li>Select the function name and press F1</li>
-<li>Read the error message</li>
-<li>Google the error message</li>
-</ul>
-</div>
-<div id="facets" class="section level2">
-<h2>facets</h2>
-</div>
-<div id="geometric-objects" class="section level2">
-<h2>geometric objects</h2>
-<p>different visual object to represent data</p>
-<p>not every aesthetic works with every geom</p>
-<p>two geoms in the same graph!</p>
-<p>local vs. global mappings This makes it possible to display different
-aesthetics in different layers.</p>
-<p>specify different data for each layer</p>
-</div>
-<div id="statistical-transformation" class="section level2">
-<h2>statistical transformation</h2>
-</div>
-<div id="position-adjustments" class="section level2">
-<h2>position adjustments</h2>
-<p>adjustments for bar charts</p>
-<p>adjustments for scatterplots</p>
-</div>
-<div id="coordinate-systems" class="section level2">
-<h2>coordinate systems</h2>
-<p>switch x and y</p>
-<p>set the aspect ratio correctly for maps</p>
-<p>Polar coordinates reveal an interesting connection between a bar
-chart and a Coxcomb chart.</p>
-</div>
-<div id="the-layered-grammar-of-graphics" class="section level2">
-<h2>the layered grammar of graphics</h2>
-<p>The grammar of graphics is based on the insight that you can uniquely
-describe any plot as a combination of:</p>
-<ul>
-<li>a dataset,</li>
-<li>a geom,</li>
-<li>a set of mappings,</li>
-<li>a stat,</li>
-<li>a position adjustment,</li>
-<li>a coordinate system, and</li>
-<li>a faceting scheme.</li>
-</ul>
-</div>
+<div id="interpret" class="section level1">
+<h1>Interpret</h1>
 </div>
 
 
