@@ -1,0 +1,60 @@
+---
+title: "Week 6: Apply 5"
+author: "Daniel Lee"
+date: "2022-09-15"
+output:
+  html_document: 
+    toc: yes
+  pdf_document: default
+  word_document: default
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, results = "hide")
+
+# Install packages
+library(tidyverse)
+library(readxl) # for importing excel files
+```
+
+# Import data
+
+```{r}
+# csv file
+data <- read.csv("../00_data/Salaries.csv")
+data
+
+# excel file
+data <- read_excel("../00_data/Salaries.xlsx")
+data
+```
+
+
+
+########################################################
+# Apply the following dplyr verbs to your data
+#########################################################
+
+## Filter rows
+
+
+## Arrange rows
+
+
+## Select columns
+
+
+## Add columns
+
+
+## Summarize by groups
+
+
+
+
+
+
+
+
