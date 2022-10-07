@@ -1,0 +1,150 @@
+---
+title: "Week 7: Code along 6"
+subtitle: "R for Data Science: Chapter 6"
+author: "Daniel Lee"
+date: "2022-10-05"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Load package
+library(tidyverse)
+```
+
+## Introduction
+
+## Questions
+
+## Variation
+
+### Visualizing distributions
+
+```{r}
+diamonds %>%
+    ggplot(aes(x = cut)) +
+    geom_bar()
+
+diamonds %>%
+    ggplot(mapping = aes(x = carat)) +
+    geom_histogram(binwidth = 0.5)
+
+diamonds %>%
+    
+    filter(carat < 3) %>%
+    
+    ggplot(aes(x = carat)) +
+    geom_histogram(binwidth = 0.5)
+
+diamonds %>%
+    ggplot(aes(x = carat, color = cut)) +
+    geom_freqpoly()
+```
+
+### Typical values
+
+```{r}
+diamonds %>%
+    
+    # Filter out bigger diamonds
+    filter(carat < 3) %>%
+    
+    # Plot
+    ggplot(aes(x = carat)) +
+    geom_histogram(binwidth = 0.01)
+
+faithful %>%
+    
+    ggplot(aes(x = eruptions)) +
+    geom_histogram()
+```
+
+### Unusual values
+
+```{r}
+diamonds %>%
+    
+    ggplot(aes(x = y)) +
+    geom_histogram()
+
+diamonds %>%
+    
+    ggplot(aes(x = y)) +
+    geom_histogram() +
+    coord_cartesian(ylim = c(0,50))
+```
+
+## Missing Values
+
+```{r}
+diamonds %>%
+    
+    # filter(y < 3 | y > 20) %>%
+    
+    mutate(y = ifelse(y < 3 | y > 20, NA, y)) %>%
+    
+    # Plot
+    ggplot(aes(x = x, y = y)) +
+    geom_point()
+```
+
+## Covariation
+
+### A categorical and continuous variable
+
+```{r}
+diamonds %>%
+    
+    ggplot(aes(x = cut, y = price)) +
+    geom_boxplot()
+```
+
+### Two categorical variables
+
+```{r}
+diamonds %>%
+    
+    count(color, cut) %>%
+    
+    ggplot(aes(x = color, y = cut, fill = n)) +
+    geom_tile()
+```
+
+
+### Two continous variables
+
+```{r}
+library(hexbin)
+diamonds %>%
+    ggplot(aes(x = carat, y = price)) +
+    geom_hex()
+
+diamonds %>%
+    filter(carat < 3) %>%
+    ggplot(aes(x = carat, y = price)) +
+    geom_boxplot(aes(group = cut_width(carat, 0.1)))
+```
+
+
+## Patterns and models
+
+```{r}
+library(modelr)
+mod <- lm(log(price) ~ log(carat), data = diamonds)
+
+diamonds4 <- diamonds %>%
+    modelr::add_residuals(mod) %>%
+    mutate(resid = exp(resid))
+
+diamonds4 %>%
+    ggplot(aes(carat, resid)) +
+    geom_point()
+
+diamonds4 %>%
+    ggplot(aes(cut, resid)) +
+    geom_boxplot()
+```
+

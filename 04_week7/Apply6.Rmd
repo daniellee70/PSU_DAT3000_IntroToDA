@@ -1,0 +1,42 @@
+---
+title: "Week 7: Apply it to your data 6"
+author: "Daniel Lee"
+date: "2022-10-05"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Load package
+library(tidyverse)
+```
+
+## Introduction
+
+## Questions
+
+## Variation
+
+### Visualizing distributions
+
+### Typical values
+
+### Unusual values
+
+## Missing Values
+
+## Covariation
+
+### A categorical and continuous variable
+
+### Two categorical variables
+
+### Two continous variables
+
+## Patterns and models
+
+
+
