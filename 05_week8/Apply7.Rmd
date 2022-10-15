@@ -1,0 +1,37 @@
+---
+title: "Week 8: Apply it to your data 7"
+author: "Daniel Lee"
+date: "2022-10-05"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Load package
+library(tidyverse)
+```
+
+## Import your data
+
+
+## Pivoting 
+
+### long to wide form
+
+
+### wide to long form
+
+
+## Separating and Uniting
+
+### Separate a column
+
+
+### Unite two columns
+
+
+## Missing Values
+

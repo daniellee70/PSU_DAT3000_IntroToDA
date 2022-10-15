@@ -1,0 +1,106 @@
+---
+title: "Week 8: Code along 7"
+subtitle: "R for Data Science: Chapter 12"
+author: "Daniel Lee"
+date: "2022-10-05"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Load package
+library(tidyverse)
+```
+
+## Tidy data
+
+## Pivoting 
+
+### long to wide form
+```{r}
+table4a_long <- table4a %>%
+    
+    pivot_longer(cols = c(`1999`, `2000`), 
+                 names_to = "year", 
+                 values_to = "cases")
+
+```
+
+### wide to long form
+```{r}
+table4a_long %>%
+    
+    pivot_wider(names_from = year, 
+                values_from = cases)
+```
+
+
+## Separating and Uniting
+
+### Separate a column
+```{r}
+table3_sep <- table3 %>%
+    
+    separate(col = rate, into = c("cases", "population"))
+```
+
+### Unite two columns
+```{r}
+table3_sep %>%
+    
+    unite(col = "rate", c(cases,population), sep = "/", )
+```
+
+## Missing Values
+
+```{r}
+stocks <- tibble(
+  year   = c(2015, 2015, 2015, 2015, 2016, 2016, 2016),
+  qtr    = c(   1,    2,    3,    4,    2,    3,    4),
+  return = c(1.88, 0.59, 0.35,   NA, 0.92, 0.17, 2.66)
+)
+```
+
+```{r}
+stocks %>%
+    
+    pivot_wider(names_from = year, values_from = return)
+```
+
+```{r}
+bikes <- tibble(
+  bike_model   = c("A", "A","B","B", "C"),
+  material    = c("steel", "aluminium", "steel", "aluminium", "steel"),
+  price = c(100, 200, 300, 400, 500)
+)
+```
+
+```{r}
+bikes %>%
+    
+    pivot_wider(names_from = bike_model, values_from = price)
+
+bikes %>%
+    
+    complete(bike_model, material)
+```
+
+```{r}
+treatment <- tribble(
+  ~ person,           ~ treatment, ~response,
+  "Derrick Whitmore", 1,           7,
+  NA,                 2,           10,
+  NA,                 3,           9,
+  "Katherine Burke",  1,           4,
+  NA,                 2,           10,
+  NA,                 3,           9
+)
+
+treatment %>%
+    
+    fill(person, .direction = "downup")
+```
+
