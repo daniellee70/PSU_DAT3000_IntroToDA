@@ -1,0 +1,136 @@
+---
+title: "Week 9: Code along 8"
+subtitle: "R for Data Science: Chapter 14"
+author: "Daniel Lee"
+date: "2022-10-05"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Load package
+library(tidyverse)
+library(nycflights13)
+```
+
+## Introduction
+
+## String basics
+
+```{r}
+chac_data <- "I'm 'very' hungry."
+
+stringr::str_length("I am hungry.")
+
+stringr::str_c(c("I", " am"), collapse = "")
+stringr::str_c("I", " am", sep = " ;")
+str_sort(c("John", "Mary", "Aaron"))
+```
+
+## Matching patterns with regular expressions
+
+```{r}
+flights %>% glimpse()
+flights_small <- flights %>% select(where(is.character)) %>% head(n = 10)
+```
+
+### Basic matches
+```{r}
+flights_small %>% filter(str_detect(origin, "M"))
+flights_small %>% filter(str_detect(origin, ".M"))
+flights_small %>% filter(str_detect(origin, "M."))
+flights_small %>% filter(str_detect(origin, "M\\."))
+```
+
+### Anchors
+```{r}
+flights_small %>% filter(str_detect(origin, "E$"))
+```
+
+### Character classes and alternatives
+```{r}
+flights_small %>% filter(str_detect(carrier, "\\d"))
+flights_small %>% filter(str_detect(carrier, "\\s"))
+flights_small %>% filter(str_detect(carrier, "[ABD]"))
+flights_small %>% filter(str_detect(carrier, "[^ABD]"))
+```
+
+### Repetition
+```{r}
+# ? 0 or 1
+flights_small %>% filter(str_detect(carrier, "A?"))
+
+# + 1 or more
+flights_small %>% filter(str_detect(carrier, "A+"))
+
+# * 0 or more
+flights_small %>% filter(str_detect(carrier, "A*"))
+```
+
+### Grouping and backreferences
+```{r}
+# (..)\\1
+
+flights %>% select(where(is.character)) %>% filter(str_detect(tailnum, "(\\d{2})\\1"))
+```
+
+## Tools
+
+### Detect matches
+
+```{r}
+flights_small %>% 
+    summarise(sum(str_detect(tailnum, "8$")))
+
+str_detect(flights_small$tailnum, "8$") 
+sum(str_detect(flights_small$tailnum, "8$"))
+mean(str_detect(flights_small$tailnum, "8$"))
+```
+
+### Extract matches
+
+```{r}
+colours <- c("red", "orange", "yellow", "green", "blue", "purple")
+colour_match <- str_c(colours, collapse = "|")
+colour_match
+
+# Extract strings with a color
+has_colour <- str_subset(sentences, colour_match)
+str_extract(has_colour, colour_match)
+
+
+```
+
+### Grouped matches
+
+```{r}
+# Extract strings with a noun
+noun <- "(a|the) ([^ ]+)"
+had_nouns <- str_subset(sentences, noun) %>% head(10)
+had_nouns %>% str_extract(noun)
+```
+
+### Replacing matches
+
+```{r}
+flights_small %>% mutate(tailnum_rev = tailnum %>% str_replace("[A-Z]", "-"))
+flights_small %>% mutate(tailnum_rev = tailnum %>% str_replace_all("[A-Z]", "-"))
+
+```
+
+### Splitting
+
+```{r}
+sentences[1] %>% str_split(" ", n = 3, simplify = TRUE)
+```
+
+
+## Other types of pattern
+
+```{r}
+flights_small %>% filter(str_detect(origin, regex("^e", ignore_case = TRUE)))
+```
+
