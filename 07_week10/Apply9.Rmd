@@ -1,0 +1,39 @@
+---
+title: "Week 10: Apply it to your data 9"
+author: "Daniel Lee"
+date: "2022-10-05"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Load package
+library(tidyverse)
+```
+
+## Import your data
+
+
+## Chapter 15
+
+### Create a factor
+
+
+### Modify factor order
+Make two bar charts here - one before ordering another after
+
+
+### Modify factor levels
+Show examples of three functions:
+
+* fct_recode
+* fct_collapse
+* fct_lump
+
+
+## Chapter 14
+
+No need to do anything here.

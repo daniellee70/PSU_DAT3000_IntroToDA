@@ -1,0 +1,182 @@
+---
+title: "Week 10: Code along 9"
+subtitle: "R for Data Science: Chapter 15 and 16"
+author: "Daniel Lee"
+date: "2022-10-05"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Load package
+library(tidyverse)
+library(lubridate)
+library(nycflights13)
+```
+
+## Ch15 Factors 
+
+### Creating factors
+
+
+### General Social Survey
+
+```{r}
+gss_cat
+```
+
+### Modifying factor order
+
+Unordered factor levels
+```{r}
+# Transform data: calculate average tv hours by religion
+tvhours_by_relig <- gss_cat %>%
+    
+    group_by(relig) %>%
+    summarise(
+        avg_tvhours = mean(tvhours, na.rm = TRUE)
+    )
+
+tvhours_by_relig
+
+# Plot
+tvhours_by_relig %>%
+    
+    ggplot(aes(x = avg_tvhours, y = relig)) +
+    geom_point()
+```
+
+Ordered factor levels
+```{r}
+tvhours_by_relig %>%
+    
+    ggplot(aes(x = avg_tvhours, y = fct_reorder(.f = relig, .x = avg_tvhours))) +
+    geom_point() +
+    
+    # Labeling
+    labs(y = NULL, x = "Mean Daily Hours Watching TV")
+```
+
+
+### Modifying factor levels
+
+
+## Ch16 Dates and times
+
+### Creating date/times
+
+#### From strings
+```{r}
+# From strings
+"2022/10/28" %>% ymd()
+
+# From numbers
+20221028 %>% ymd()
+
+"2022-10-28 4-41-30" %>% ymd_hms()
+```
+
+#### From individual components
+
+```{r}
+flights %>%
+    select(year:day, hour, minute) %>%
+    mutate(departure = make_datetime(year = year, month = month,
+                                     day = day, hour = hour, min = minute))
+```
+
+#### From other types
+
+```{r}
+# From date to date-time
+today() %>% as_datetime()
+
+# From date-time to date
+now() %>% as_date()
+```
+
+
+### Date-time components
+
+#### Getting compnents
+
+```{r}
+date_time <- ymd_hms("2022-10-28 18-18-18")
+date_time
+
+year(date_time)
+month(date_time, label = TRUE, abbr = FALSE)
+yday(date_time)
+mday(date_time)
+wday(date_time, label = TRUE, abbr = FALSE)
+```
+
+```{r}
+# Create flights_dt 
+make_datetime_100 <- function(year, month, day, time) {
+  make_datetime(year, month, day, time %/% 100, time %% 100)
+}
+
+flights_dt <- flights %>% 
+  filter(!is.na(dep_time), !is.na(arr_time)) %>% 
+  mutate(
+    dep_time = make_datetime_100(year, month, day, dep_time),
+    arr_time = make_datetime_100(year, month, day, arr_time),
+    sched_dep_time = make_datetime_100(year, month, day, sched_dep_time),
+    sched_arr_time = make_datetime_100(year, month, day, sched_arr_time)
+  ) %>% 
+  select(origin, dest, ends_with("delay"), ends_with("time"))
+```
+
+```{r}
+flights_dt %>%
+    
+    transmute(wday = wday(dep_time, label = TRUE)) %>%
+    
+    ggplot(aes(wday)) +
+    geom_bar()
+```
+
+
+#### Rounding
+
+```{r}
+# floor_date for rounding down
+flights_dt %>%
+    
+    mutate(week = floor_date(dep_time, "month")) %>%
+    select(dep_time, week) %>%
+    sample_n(10)
+
+# ceiling_date for rounding up
+flights_dt %>%
+    
+    mutate(week = ceiling_date(dep_time, "month")) %>%
+    select(dep_time, week) %>%
+    sample_n(10)
+```
+
+#### Setting components
+
+```{r}
+flights_dt %>%
+    mutate(dep_hour = update(dep_time, yday = 1)) %>%
+    select(dep_time, dep_hour) %>%
+    sample_n(10)
+```
+
+### Time spans
+
+
+
+
+
+
+
+
+
+
+
