@@ -1,0 +1,144 @@
+---
+title: "Week 14: Code along 13"
+subtitle: "R for Data Science: Chapter 20 & 21"
+author: "Daniel Lee"
+date: "2022-10-05"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Load package
+library(tidyverse)
+library(lubridate)
+library(nycflights13)
+```
+
+# Ch20 Vectors
+
+## 1 Introduction
+
+## 2 Vector basics
+
+## 3 Important types of atomic vector
+
+## 4 Using atomic vectors
+
+```{r}
+sample(10) + 10
+1:10 + 1:2
+1:10 + 1:3
+data.frame(a = 1:10, b = 1:2)
+# data.frame(a = 1:10, b = 1:3)
+```
+
+```{r}
+x <- sample(10)
+x
+
+x[c(5, 7)]
+x[x>5]
+```
+
+## 5 Recursive vectors (lists)
+
+```{r}
+a <- list(a = 1:3, b = "a string", c = pi, d = list(-1, -5))
+a
+
+a[1:2]
+a[[4]]
+a[[4]][2]
+a[[4]][[2]]
+```
+
+
+## 6 Attributes
+
+## 7 Augmented vectors
+
+
+# Ch21 Iteration
+
+## 1 Introduction
+
+## 2 For loops
+
+```{r}
+# example from the cheatsheet
+for (i in 1:4){
+    j <- i + 10
+    print(j)
+}
+
+# example 1: numeric calculation - add 10 
+x <- 11:15
+
+for (i in seq_along(x)){
+    j <- x[i] + 10
+    print(j)
+}
+
+# save output
+y <- vector("integer", length(x))
+
+for (i in seq_along(x)){
+    y[i] <- x[i] + 10
+    print(y[i])
+}
+
+# output
+y
+
+# example 2: string operation - extract first letter
+x <- c("abc", "xyz")
+
+y <- vector("character", length(x))
+
+for (i in seq_along(x)){
+    y[i] <- x[i] %>% str_extract("[a-z]")
+    print(y[i])
+}
+
+# output
+y
+```
+
+## 3 The map functions
+
+```{r}
+# example 1: numeric calculation - add 10 
+x <- 11:15
+
+y <- vector("integer", length(x))
+
+for (i in seq_along(x)){
+    y[i] <- x[i] + 10
+    print(y[i])
+}
+
+# output
+y
+```
+
+```{r}
+# using map function
+x
+
+map(.x = x, .f = ~.x + 10)
+map_dbl(.x = x, .f = ~.x + 10)
+
+add_10 <- function(x) {x + 10}
+11 %>% add_10()
+map_dbl(.x = x, .f = add_10)
+```
+
+## 4 Dealing failure
+
+
+## 5 Mapping over multiple arguments
+
+

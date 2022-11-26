@@ -1,0 +1,96 @@
+---
+title: "Week 14: Apply it to your data 13"
+subtitle: "Chapter 21 Iteration"
+author: "Daniel Lee"
+date: "2022-10-05"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+# Load package
+library(tidyverse)
+```
+
+## Import your data
+
+```{r}
+data("mtcars")
+skimr::skim(mtcars)
+mtcars %>% distinct(cyl)
+```
+
+
+## Repeat the same operation over different columns of a data frame
+
+Case of numeric variables
+```{r}
+mtcars %>%
+    
+    # mutate(char_var = "A") %>%
+    
+    map(mean) # map(.x = ., .f = mean)
+    
+```
+
+Create your own function
+
+```{r}
+muliply_by_factor <- function(x, factor) {x * factor}
+
+10 %>% muliply_by_factor(factor = 2)
+
+mtcars %>% map(.x = ., .f = ~muliply_by_factor(x = .x, factor = 2))
+mtcars %>% map_dfc(.x = ., .f = ~muliply_by_factor(x = .x, factor = 2))
+
+
+mtcars %>% map(muliply_by_factor, factor = 2)
+```
+
+
+
+## Repeat the same operation over different elements of a list
+When you have a grouping variable (factor)
+
+```{r}
+reg_coeff_tbl <- mtcars %>%
+    
+    # Split the data frame into a list by a factor
+    split(.$cyl) %>%
+    
+    # Repeat the same operation over each element
+    map(~lm(mpg ~ wt, data = .)) %>%
+    
+    # Return regression coefficients in a tidy tibble
+    map(broom::tidy, conf.int = TRUE) %>%
+    
+    # Bind multiple data frames by row
+    bind_rows(.id = "cyl") %>%
+    
+    # Filter for coefficient of interest
+    filter(term == "wt")
+```
+
+```{r}
+reg_coeff_tbl %>%
+    
+    ggplot(aes(estimate, cyl)) +
+    geom_point(aes(color = cyl), size = 3) +
+    geom_errorbarh(aes(xmin=conf.low, xmax = conf.high)) +
+    
+    theme(legend.position = "none") 
+```
+
+
+
+
+## Create your own
+Choose either one of the two cases above and apply it to your data
+
+```{r}
+
+```
+
