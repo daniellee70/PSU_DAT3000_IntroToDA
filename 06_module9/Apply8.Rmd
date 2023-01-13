@@ -28,16 +28,3 @@ Divide it using dplyr::select in a way the two have a common variable, which you
 
 ### Can you join the two together?
 Use tidyr::left_join or other joining functions.
-
-## Chapter 14
-
-## Tools
-
-### Detect matches
-
-
-### Extract matches
-
-
-### Replacing matches
-
