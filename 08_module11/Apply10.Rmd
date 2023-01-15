@@ -34,6 +34,6 @@ Show examples of three functions:
 * fct_lump
 
 
-## Chapter 14
+## Chapter 16
 
 No need to do anything here.
