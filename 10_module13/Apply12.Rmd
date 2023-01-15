@@ -1,8 +1,7 @@
 ---
-title: "Week 14: Apply it to your data 13"
+title: "Module 13: Apply it to your data 12"
 subtitle: "Chapter 21 Iteration"
 author: "Daniel Lee"
-date: "2022-10-05"
 output: html_document
 editor_options: 
   chunk_output_type: console
