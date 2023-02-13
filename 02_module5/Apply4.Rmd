@@ -1,7 +1,6 @@
 ---
-title: "Week 4: Apply 3"
+title: "Module 5: Apply 4"
 author: "Daniel Lee"
-date: "2022-09-15"
 output:
   html_document: 
     toc: yes
