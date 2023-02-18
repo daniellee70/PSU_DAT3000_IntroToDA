@@ -1,8 +1,7 @@
 ---
-title: "Week 9: Code along 8"
+title: "Moudle 9: Code along 8"
 subtitle: "R for Data Science: Chapter 13"
 author: "Daniel Lee"
-date: "2022-10-05"
 output: html_document
 editor_options: 
   chunk_output_type: console

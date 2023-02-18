@@ -1,7 +1,6 @@
 ---
-title: "Week 7: Apply it to your data 6"
+title: "Module 7: Apply it to your data 6"
 author: "Daniel Lee"
-date: "2022-10-05"
 output: html_document
 editor_options: 
   chunk_output_type: console
