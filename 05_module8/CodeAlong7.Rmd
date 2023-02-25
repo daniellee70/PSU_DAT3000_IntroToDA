@@ -20,12 +20,15 @@ library(tidyverse)
 
 ### long to wide form
 ```{r}
+table4a
+
 table4a_long <- table4a %>%
     
     pivot_longer(cols = c(`1999`, `2000`), 
                  names_to = "year", 
                  values_to = "cases")
 
+table4a_long
 ```
 
 ### wide to long form
@@ -41,9 +44,13 @@ table4a_long %>%
 
 ### Separate a column
 ```{r}
+table3
+
 table3_sep <- table3 %>%
     
     separate(col = rate, into = c("cases", "population"))
+
+table3_sep
 ```
 
 ### Unite two columns

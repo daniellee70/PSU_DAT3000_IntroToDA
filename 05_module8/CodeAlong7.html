@@ -363,11 +363,29 @@ display: none;
 <h2>Pivoting</h2>
 <div id="long-to-wide-form" class="section level3">
 <h3>long to wide form</h3>
+<pre class="r"><code>table4a</code></pre>
+<pre><code>## # A tibble: 3 × 3
+##   country     `1999` `2000`
+## * &lt;chr&gt;        &lt;int&gt;  &lt;int&gt;
+## 1 Afghanistan    745   2666
+## 2 Brazil       37737  80488
+## 3 China       212258 213766</code></pre>
 <pre class="r"><code>table4a_long &lt;- table4a %&gt;%
     
     pivot_longer(cols = c(`1999`, `2000`), 
                  names_to = &quot;year&quot;, 
-                 values_to = &quot;cases&quot;)</code></pre>
+                 values_to = &quot;cases&quot;)
+
+table4a_long</code></pre>
+<pre><code>## # A tibble: 6 × 3
+##   country     year   cases
+##   &lt;chr&gt;       &lt;chr&gt;  &lt;int&gt;
+## 1 Afghanistan 1999     745
+## 2 Afghanistan 2000    2666
+## 3 Brazil      1999   37737
+## 4 Brazil      2000   80488
+## 5 China       1999  212258
+## 6 China       2000  213766</code></pre>
 </div>
 <div id="wide-to-long-form" class="section level3">
 <h3>wide to long form</h3>
@@ -387,9 +405,30 @@ display: none;
 <h2>Separating and Uniting</h2>
 <div id="separate-a-column" class="section level3">
 <h3>Separate a column</h3>
+<pre class="r"><code>table3</code></pre>
+<pre><code>## # A tibble: 6 × 3
+##   country      year rate             
+## * &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;            
+## 1 Afghanistan  1999 745/19987071     
+## 2 Afghanistan  2000 2666/20595360    
+## 3 Brazil       1999 37737/172006362  
+## 4 Brazil       2000 80488/174504898  
+## 5 China        1999 212258/1272915272
+## 6 China        2000 213766/1280428583</code></pre>
 <pre class="r"><code>table3_sep &lt;- table3 %&gt;%
     
-    separate(col = rate, into = c(&quot;cases&quot;, &quot;population&quot;))</code></pre>
+    separate(col = rate, into = c(&quot;cases&quot;, &quot;population&quot;))
+
+table3_sep</code></pre>
+<pre><code>## # A tibble: 6 × 4
+##   country      year cases  population
+##   &lt;chr&gt;       &lt;int&gt; &lt;chr&gt;  &lt;chr&gt;     
+## 1 Afghanistan  1999 745    19987071  
+## 2 Afghanistan  2000 2666   20595360  
+## 3 Brazil       1999 37737  172006362 
+## 4 Brazil       2000 80488  174504898 
+## 5 China        1999 212258 1272915272
+## 6 China        2000 213766 1280428583</code></pre>
 </div>
 <div id="unite-two-columns" class="section level3">
 <h3>Unite two columns</h3>
